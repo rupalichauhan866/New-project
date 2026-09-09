@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpenseTracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span>◈</span> ExpenseTracker</div>
+      <nav>
+        <button class="nav-item active" data-page="dashboard">⌂ <span>Dashboard</span></button>
+        <button class="nav-item" data-page="transactions">▤ <span>Transactions</span></button>
+        <button class="nav-item" data-page="add">＋ <span>Add Transaction</span></button>
+        <button class="nav-item" data-page="categories">▦ <span>Categories</span></button>
+        <button class="nav-item" data-page="reports">◫ <span>Reports</span></button>
+      </nav>
+      <div class="sidebar-tip">💡 Track smart, save more!</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">Dashboard</h1>
+          <p id="pageSubtitle">Overview of your finances</p>
+        </div>
+        <div class="profile"><span class="bell">♧</span><span class="avatar">R</span> Rupali</div>
+      </header>
+
+      <section id="dashboard" class="page active-page">
+        <div class="stats">
+          <div class="stat"><span>Total Balance</span><b id="balance">₹24,530</b><small>↗ +12.5% from last month</small>
+          </div>
+          <div class="stat"><span>Total Income</span><b id="income">₹45,000</b><small>↗ +8.3% from last month</small>
+          </div>
+          <div class="stat"><span>Total Expenses</span><b id="expense">₹20,470</b><small class="red">↗ +5.7% from last
+              month</small></div>
+          <div class="stat"><span>This Month Savings</span><b id="savings">₹24,530</b><small>↗ +15.2% from last
+              month</small></div>
+        </div>
+        <div class="grid-two">
+          <div class="card">
+            <div class="card-title">Expense Overview</div>
+            <div class="chart-row">
+              <div class="donut">
+                <div><b id="donutTotal">₹20,470</b><span>Total</span></div>
+              </div>
+              <div id="legend" class="legend"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Recent Transactions <button class="link" onclick="showPage('transactions')">View
+                All</button></div>
+            <div id="recent"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="add" class="page">
+        <div class="card form-card">
+          <div class="tabs"><button id="expenseTab" class="tab selected"
+              onclick="setType('expense')">Expense</button><button id="incomeTab" class="tab"
+              onclick="setType('income')">Income</button></div>
+          <form id="transactionForm">
+            <label>Category<select id="category"></select></label>
+            <label>Amount (₹)<input id="amount" type="number" min="1" placeholder="1250" required></label>
+            <label>Date<input id="date" type="date" required></label>
+            <label>Description<input id="description" placeholder="Lunch at cafe" required></label>
+            <button class="primary" type="submit">Add Transaction</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="transactions" class="page">
+        <div class="card">
+          <div class="filters"><input id="search" placeholder="⌕ Search transactions..."
+              oninput="renderTransactions()"><select id="filterCat" onchange="renderTransactions()">
+              <option value="">All Categories</option>
+            </select><select id="filterType" onchange="renderTransactions()">
+              <option value="">All Types</option>
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="transactionRows"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="categories" class="page">
+        <div class="card category-card">
+          <div class="card-title">Expense Categories</div>
+          <div id="expenseCategories"></div>
+          <button class="primary small" onclick="addCategory('expense')">＋ Add Category</button>
+          <div class="card-title income-heading">Income Categories</div>
+          <div id="incomeCategories"></div>
+          <button class="income-btn small" onclick="addCategory('income')">＋ Add Category</button>
+        </div>
+      </section>
+
+      <section id="reports" class="page">
+        <div class="stats">
+          <div class="stat"><span>Total Income</span><b class="green" id="reportIncome">₹45,000</b></div>
+          <div class="stat"><span>Total Expenses</span><b class="red" id="reportExpense">₹20,470</b></div>
+          <div class="stat"><span>Savings</span><b class="blue" id="reportSavings">₹24,530</b></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Expense Breakdown</div>
+          <div class="chart-row report-chart">
+            <div class="donut">
+              <div><b id="reportDonut">₹20,470</b><span>Total</span></div>
+            </div>
+            <div id="reportLegend" class="legend"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
